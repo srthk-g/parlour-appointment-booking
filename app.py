@@ -6,7 +6,8 @@ app.secret_key = "secret123"
 
 # INIT DATABASE
 init_db()
-seed_services()   
+seed_services()  
+seed_admin() 
 
 
 # ==========================
