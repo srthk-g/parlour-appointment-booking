@@ -207,3 +207,20 @@ def seed_services():
                 ("Makeup", 1500, 90),
                 ("Manicure", 600, 60)
             ])
+
+def seed_admin():
+    with get_connection() as conn:
+        cursor = conn.cursor()
+
+        # check if admin exists
+        existing = cursor.execute(
+            "SELECT * FROM users WHERE role='admin'"
+        ).fetchone()
+
+        if not existing:
+            print("Creating admin user...")  # debug
+
+            cursor.execute("""
+                INSERT INTO users (name, email, password, role)
+                VALUES (?, ?, ?, ?)
+            """, ("Admin", "admin@gmail.com", "1234", "admin"))
