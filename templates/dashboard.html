@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | GlowStudio{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <h3 class="section-title">Admin Dashboard</h3>
+
+        <!-- STATS -->
+        <div class="row g-4 mb-4">
+
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5>Total Bookings</h5>
+                    <h2>{{ total_bookings }}</h2>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5>Pending</h5>
+                    <h2>{{ pending_count }}</h2>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h5>Completed</h5>
+                    <h2>{{ completed_count }}</h2>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CHART -->
+        <div class="card p-4">
+            <h5 class="mb-3">Daily Bookings</h5>
+            <canvas id="bookingChart"></canvas>
+        </div>
+
+    </div>
+</section>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('bookingChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ labels | tojson }},
+            datasets: [{
+                label: 'Bookings',
+                data: {{ values | tojson }},
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+});
+</script>
+
+{% endblock %}

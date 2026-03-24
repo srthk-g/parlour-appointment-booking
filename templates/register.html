@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Register | GlowStudio{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="form-container">
+
+            <h3 class="text-center mb-3 text-pink">Create Account</h3>
+
+            <!-- FLASH MESSAGES -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                            {{ message }}
+                        </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                document.querySelector('.form-container').classList.add('shake');
+                            });
+                        </script>
+
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- FORM -->
+            <form method="POST">
+
+                <div class="mb-3">
+                    <label>Full Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirm_password" class="form-control" required>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-pink">Register</button>
+                </div>
+
+            </form>
+
+            <!-- LOGIN LINK -->
+            <p class="text-center mt-3 small">
+                Already have an account?
+                <a href="{{ url_for('login') }}" class="text-pink">Login</a>
+            </p>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

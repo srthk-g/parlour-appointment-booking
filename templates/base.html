@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}GlowStudio{% endblock %}</title>
+
+    <!-- Fonts + Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg p-2">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">GlowStudio</a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+    </li>
+
+    {% if session.get('user_id') %}
+
+        <!-- ADMIN LINKS -->
+        {% if session.get('role') == 'admin' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('manage_appointments') }}">Appointments</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('manage_services') }}">Manage Services</a>
+            </li>
+        {% endif %}
+
+        <!-- USER LINKS -->
+        {% if session.get('role') == 'customer' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('my_appointments') }}">My Appointments</a>
+            </li>
+        {% endif %}
+
+        <!-- USER NAME -->
+        <li class="nav-item">
+            <span class="nav-link">Hi, {{ session.get('name') }}</span>
+        </li>
+
+        <!-- LOGOUT -->
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+
+    {% else %}
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+        </li>
+
+    {% endif %}
+
+</ul>
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENT -->
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p class="mb-0">© 2026 GlowStudio</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

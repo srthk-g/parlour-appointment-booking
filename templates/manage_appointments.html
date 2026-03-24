@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Appointments | GlowStudio{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <h3 class="section-title">Manage Appointments</h3>
+
+        <div class="table-responsive shadow-soft p-3">
+
+            <table class="table table-bordered text-center align-middle">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Customer</th>
+                        <th>Service</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% if appointments %}
+                        {% for appt in appointments %}
+                        <tr>
+                            <td>{{ appt.id }}</td>
+                            <td>{{ appt.name }}</td>
+                            <td>{{ appt.service }}</td>
+                            <td>{{ appt.date }}</td>
+                            <td>{{ appt.time }}</td>
+
+                            <!-- STATUS -->
+                            <td>
+                                {% if appt.status == 'Pending' %}
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                {% elif appt.status == 'Completed' %}
+                                    <span class="badge bg-success">Completed</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ appt.status }}</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- ACTION -->
+                            <td>
+                                {% if appt.status != 'Completed' %}
+                                <form method="POST" action="{{ url_for('update_status', id=appt.id) }}">
+                                    <button class="btn btn-pink btn-sm">
+                                        Mark Completed
+                                    </button>
+                                </form>
+                                {% else %}
+                                    <span class="text-muted small">Done</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7">No appointments found.</td>
+                        </tr>
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

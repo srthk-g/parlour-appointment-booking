@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Services | GlowStudio{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <h3 class="section-title">Manage Services</h3>
+
+        <div class="row g-4">
+
+            <!-- ADD SERVICE -->
+            <div class="col-md-4">
+                <div class="form-container">
+
+                    <h5 class="mb-3 text-pink">Add Service</h5>
+
+                    <!-- FLASH -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} text-center">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+
+                    <form method="POST" action="{{ url_for('add_service_route') }}">
+
+                        <div class="mb-2">
+                            <input type="text" name="name" class="form-control" placeholder="Service Name" required>
+                        </div>
+
+                        <div class="mb-2">
+                            <input type="number" name="price" class="form-control" placeholder="Price (₹)" required>
+                        </div>
+
+                        <div class="mb-2">
+                            <input type="number" name="duration" class="form-control" placeholder="Duration (mins)" required>
+                        </div>
+
+                        <div class="d-grid">
+                            <button class="btn btn-pink">Add Service</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- SERVICES TABLE -->
+            <div class="col-md-8">
+                <div class="table-responsive shadow-soft p-3">
+
+                    <table class="table table-bordered text-center align-middle">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Duration</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% if services %}
+                                {% for service in services %}
+                                <tr>
+                                    <td>{{ service.id }}</td>
+                                    <td>{{ service.name }}</td>
+                                    <td>₹{{ service.price }}</td>
+                                    <td>{{ service.duration }} mins</td>
+
+                                    <td>
+                                        <form method="POST" action="{{ url_for('delete_service_route', id=service.id) }}">
+                                            <button class="btn btn-danger btn-sm">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">No services available.</td>
+                                </tr>
+                            {% endif %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

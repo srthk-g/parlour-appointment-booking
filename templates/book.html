@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Book Appointment | GlowStudio{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="form-container">
+
+            <h3 class="text-center mb-3 text-pink">Book Appointment</h3>
+
+            <!-- FLASH MESSAGES -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} text-center">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- FORM -->
+            <form method="POST">
+
+                <!-- SERVICE -->
+                <div class="mb-3">
+                    <label>Select Service</label>
+                    <select name="service" class="form-control" required>
+                        <option value="">-- Choose Service --</option>
+
+                        {% for service in services %}
+                            <option value="{{ service.name }}">
+                                {{ service.name }} (₹{{ service.price }})
+                            </option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+                <!-- DATE -->
+                <div class="mb-3">
+                    <label>Select Date</label>
+                    <input type="date" name="date" class="form-control" required>
+                </div>
+
+                <!-- TIME (FIXED DROPDOWN) -->
+                <div class="mb-3">
+                    <label>Select Time</label>
+                    <select name="time" class="form-control" required>
+                        <option value="">-- Select Time --</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="13:00">1:00 PM</option>
+                        <option value="14:00">2:00 PM</option>
+                        <option value="15:00">3:00 PM</option>
+                        <option value="16:00">4:00 PM</option>
+                        <option value="17:00">5:00 PM</option>
+                    </select>
+                </div>
+
+                <!-- NOTES -->
+                <div class="mb-3">
+                    <label>Notes (optional)</label>
+                    <textarea name="notes" class="form-control" rows="3"></textarea>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-pink">
+                        Confirm Booking
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

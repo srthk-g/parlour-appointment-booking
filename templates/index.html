@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Home | GlowStudio{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container text-center">
+        <h1>Book Your Beauty Appointment Instantly</h1>
+        <p>Seamless online booking. No waiting, no confusion.</p>
+
+        <a href="{{ url_for('book') }}" class="btn btn-custom">
+            Book Now
+        </a>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="py-4">
+    <div class="container">
+        <h2 class="section-title">Why Choose Us</h2>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <div class="card p-3 text-center">
+                    <h6>24/7 Booking</h6>
+                    <p class="small">Book anytime without calls.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card p-3 text-center">
+                    <h6>No Double Booking</h6>
+                    <p class="small">Smart scheduling system.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card p-3 text-center">
+                    <h6>Analytics</h6>
+                    <p class="small">Track bookings easily.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section class="py-4 bg-light">
+    <div class="container">
+        <h2 class="section-title">Our Services</h2>
+
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <div class="card p-3 text-center">
+                    <h6>Hair Styling</h6>
+                    <p class="small">Professional styling services.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card p-3 text-center">
+                    <h6>Facial</h6>
+                    <p class="small">Glow-enhancing treatments.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card p-3 text-center">
+                    <h6>Makeup</h6>
+                    <p class="small">Bridal & party makeup.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-3">
+            <a href="{{ url_for('services') }}" class="btn btn-pink">
+                View All Services
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="text-center py-4">
+    <div class="container">
+        <h5>Ready to glow?</h5>
+
+        <a href="{{ url_for('book') }}" class="btn btn-custom">
+            Book Appointment
+        </a>
+    </div>
+</section>
+
+{% endblock %}

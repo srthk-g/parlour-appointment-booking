@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Services | GlowStudio{% endblock %}
+
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+
+        <h2 class="section-title">Our Services</h2>
+
+        <div class="row g-4">
+
+            {% if services %}
+                {% for service in services %}
+                <div class="col-md-4">
+                    <div class="card p-3 text-center">
+
+                        <h5>{{ service.name }}</h5>
+                        <p class="small">Professional service</p>
+
+                        <p>
+                            <strong>₹{{ service.price }}</strong> • 
+                            {{ service.duration }} mins
+                        </p>
+
+                        <a href="{{ url_for('book') }}" class="btn btn-pink">
+                            Book Now
+                        </a>
+
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center">No services available.</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
